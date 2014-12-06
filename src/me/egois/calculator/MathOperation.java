@@ -19,22 +19,42 @@ public class MathOperation {
      * 
      * @param op the number operand
      */
-    public void setOperand(String op)
+    public void operand(String op)
     {
-        if (this.isAfterCalculation) {
-            this.leftOperand = "";
-            this.isAfterCalculation = false;
+        if (isAfterCalculation) {
+            leftOperand = "";
+            isAfterCalculation = false;
         }
         
-        if (this.mathSymbol.isEmpty()) {
-            if (this.leftOperand.isEmpty() && op.equals(".")) {
-                this.leftOperand = "0";
+        if (mathSymbol.isEmpty()) {
+            if (leftOperand.isEmpty() && op.equals(".")) {
+                leftOperand = "0";
             }
-            this.leftOperand = this.leftOperand.concat(op);
+            leftOperand = leftOperand.concat(op);
             return;
         }
         
-        this.rightOperand = this.rightOperand.concat(op);
+        rightOperand = rightOperand.concat(op);
+    }
+    
+	/**
+	 * Change polarization of number operand
+	 */
+    public void polarize()
+    {
+		if (mathSymbol.isEmpty()) {
+			if (!leftOperand.isEmpty() && leftOperand.startsWith("-")) {
+				leftOperand = leftOperand.replace("-","");
+			} else {
+				leftOperand = "-".concat(leftOperand);
+			}
+		} else {
+			if (!rightOperand.isEmpty() && rightOperand.startsWith("-")) {
+				rightOperand = rightOperand.replace("-","");
+			} else {
+				rightOperand = "-".concat(rightOperand);
+			}
+		}
     }
     
     /**
@@ -42,20 +62,20 @@ public class MathOperation {
      * 
      * @param op the math operation symbol
      */
-    public void setMath(String op)
+    public void math(String op)
     {
-        if (this.leftOperand.isEmpty()) {
+        if (leftOperand.isEmpty() || leftOperand.equals("-")) {
             return;
         }
         
-        if (!this.mathSymbol.isEmpty()) {
+        if (!mathSymbol.isEmpty()) {
             try {
                 this.calculate();
             } catch (Exception e) {}
         }
         
-        this.mathSymbol = op;
-        this.isAfterCalculation = false;
+        mathSymbol = op;
+        isAfterCalculation = false;
     }
     
     /**
@@ -65,30 +85,30 @@ public class MathOperation {
      */
     public void calculate() throws Exception
     {
-        if(this.leftOperand.isEmpty() || this.mathSymbol.isEmpty() || this.rightOperand.isEmpty()) {
+        if(leftOperand.isEmpty() || leftOperand.equals("-") || mathSymbol.isEmpty() || rightOperand.isEmpty() || rightOperand.equals("-")) {
             //this.reset();
             return;
         }
         
         double r;
-        double first = Double.valueOf(this.leftOperand);
-        double second = Double.valueOf(this.rightOperand);
+        double first = Double.valueOf(leftOperand);
+        double second = Double.valueOf(rightOperand);
         
-        if (this.mathSymbol.equals("+")) {
+        if (mathSymbol.equals("+")) {
         	r = first + second;
-        } else if (this.mathSymbol.equals("-")) {
+        } else if (mathSymbol.equals("-")) {
         	r = first - second;
-        } else if (this.mathSymbol.equals("*")) {
+        } else if (mathSymbol.equals("*")) {
         	r = first * second;
-        } else if (this.mathSymbol.equals(":")) {
+        } else if (mathSymbol.equals(":")) {
         	r = first/second;
         } else {
         	throw new Exception("unsupported math operand");
         }
         
         this.reset();
-        this.leftOperand = (new DecimalFormat("#.##")).format(r);
-        this.isAfterCalculation = true;
+        leftOperand = (new DecimalFormat("#.##")).format(r);
+        isAfterCalculation = true;
     }
     
     /**
@@ -96,9 +116,9 @@ public class MathOperation {
      */
     public void reset()
     {
-        this.leftOperand = "";
-        this.rightOperand = "";
-        this.mathSymbol = "";
+        leftOperand = "";
+        rightOperand = "";
+        mathSymbol = "";
     }
 
     /**
@@ -106,7 +126,7 @@ public class MathOperation {
      * 
      * @return string
      */
-    public String getLeftOperand() {
+    public String leftOperand() {
         return leftOperand;
     }
 
@@ -115,7 +135,7 @@ public class MathOperation {
      * 
      * @return string
      */
-    public String getRightOperand() {
+    public String rightOperand() {
         return rightOperand;
     }
 
@@ -124,7 +144,7 @@ public class MathOperation {
      * 
      * @return string
      */
-    public String getMathSymbol() {
+    public String mathSymbol() {
         return mathSymbol;
     }
 	

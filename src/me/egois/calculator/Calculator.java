@@ -15,21 +15,21 @@ public class Calculator {
 	/**
 	 * Calculator class constructor
 	 * 
-	 * @param mOperation instance of MathOperation
-	 * @param mDisplay reference of TextView where the statement displayed
+	 * @param op instance of MathOperation
+	 * @param view reference of TextView where the statement displayed
 	 */
-	public Calculator(MathOperation mOperation, TextView mDisplay) {
+	public Calculator(MathOperation op, TextView view) {
 
-		this.mOperation = mOperation;
-		this.mDisplay = mDisplay;
+		mOperation = op;
+		mDisplay = view;
 	}
 
 	/**
 	 * Reset operands and displays
 	 */
 	public void reset() {
-		this.mOperation.reset();
-		this.updateDisplay();
+		mOperation.reset();
+		show();
 	}
 
 	/**
@@ -37,9 +37,9 @@ public class Calculator {
 	 * 
 	 * @param op added operand to statement
 	 */
-	public void setOperand(String op) {
-		this.mOperation.setOperand(op);
-		this.updateDisplay();
+	public void operand(String op) {
+		mOperation.operand(op);
+		show();
 	}
 
 	/**
@@ -47,9 +47,9 @@ public class Calculator {
 	 * 
 	 * @param m math symbol added to statement
 	 */
-	public void setMath(String m) {
-		this.mOperation.setMath(m);
-		this.updateDisplay();
+	public void math(String m) {
+		mOperation.math(m);
+		show();
 	}
 
 	/**
@@ -57,10 +57,19 @@ public class Calculator {
 	 */
 	public void calculate() {
 		try {
-			this.mOperation.calculate();
+			mOperation.calculate();
 		} catch (Exception e) {
 		}
-		this.updateDisplay();
+		show();
+	}
+	
+	/**
+	 * Change polarization of number operand and update display
+	 */
+	public void polarize()
+	{
+		mOperation.polarize();
+		show();
 	}
 	
 	/**
@@ -70,7 +79,8 @@ public class Calculator {
 	 */
 	public boolean hasLeftOperand()
 	{
-		return !this.mOperation.getLeftOperand().isEmpty();
+		String s = mOperation.leftOperand();
+		return (!s.isEmpty() && !s.equals("-"));
 	}
 	
 	/**
@@ -80,7 +90,8 @@ public class Calculator {
 	 */
 	public boolean hasRightOperand()
 	{
-		return !this.mOperation.getRightOperand().isEmpty();
+		String s = mOperation.rightOperand();
+		return (!s.isEmpty() && !s.equals("-"));
 	}
 	
 	/**
@@ -90,17 +101,17 @@ public class Calculator {
 	 */
 	public boolean hasMathOperand()
 	{
-		return !this.mOperation.getMathSymbol().isEmpty();
+		return !mOperation.mathSymbol().isEmpty();
 	}
 
 	/**
 	 * Update displays with current statement
 	 */
-	protected void updateDisplay() {
+	protected void show() {
 		String d = (new StringBuilder())
-				.append(this.mOperation.getLeftOperand())
-				.append(this.mOperation.getMathSymbol())
-				.append(this.mOperation.getRightOperand()).toString();
-		this.mDisplay.setText(d);
+				.append(mOperation.leftOperand())
+				.append(mOperation.mathSymbol())
+				.append(mOperation.rightOperand()).toString();
+		mDisplay.setText(d);
 	}
 }

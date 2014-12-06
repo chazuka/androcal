@@ -22,7 +22,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 				R.id.btnThree, R.id.btnFour, R.id.btnFive, R.id.btnSix,
 				R.id.btnSeven, R.id.btnEight, R.id.btnNine, R.id.btnMultiply,
 				R.id.btnDivide, R.id.btnPlus, R.id.btnMinus, R.id.btnClear,
-				R.id.btnPercent, R.id.btnDot, R.id.btnEqual, };
+				R.id.btnPercent, R.id.btnDot, R.id.btnEqual, R.id.btnPlusMinus };
 		for (int i : buttons) {
 			((Button) findViewById(i)).setOnClickListener(this);
 		}
@@ -64,13 +64,16 @@ public class HomeActivity extends Activity implements OnClickListener {
 		case R.id.btnEight:
 		case R.id.btnNine:
 		case R.id.btnDot:
-			mEngine.setOperand(((Button) v).getText().toString());
+			mEngine.operand(((Button) v).getText().toString());
+			break;
+		case R.id.btnPlusMinus:
+			mEngine.polarize();
 			break;
 		case R.id.btnMultiply:
 		case R.id.btnDivide:
 		case R.id.btnPlus:
 		case R.id.btnMinus:
-			mEngine.setMath(((Button) v).getText().toString());
+			mEngine.math(((Button) v).getText().toString());
 			break;
 		case R.id.btnClear:
 			mEngine.reset();
@@ -81,8 +84,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 				break;
 			}
 
-			mEngine.setMath(":");
-			mEngine.setOperand("100");
+			mEngine.math(":");
+			mEngine.operand("100");
 			mEngine.calculate();
 			break;
 		case R.id.btnEqual:
