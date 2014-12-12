@@ -34,15 +34,14 @@
     <style name="CButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:padding">@dimen/CBtnPadding</item>
         <item name="android:textSize">@dimen/CBtnFont</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/cbutton</item>
         <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:layout_marginTop">@dimen/CBtnPadding</item>
+        <item name="android:layout_marginTop">@dimen/CBtnMargin</item>
 		<item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">@dimen/CBtnPadding</item>
+        <item name="android:layout_marginRight">@dimen/CBtnMargin</item>
     </style>
     
     <style name="CButtonRight" parent="@style/CButton">

@@ -22,13 +22,15 @@ public class HomeActivity extends Activity implements OnClickListener {
 				R.id.btnThree, R.id.btnFour, R.id.btnFive, R.id.btnSix,
 				R.id.btnSeven, R.id.btnEight, R.id.btnNine, R.id.btnMultiply,
 				R.id.btnDivide, R.id.btnPlus, R.id.btnMinus, R.id.btnClear,
-				R.id.btnPercent, R.id.btnDot, R.id.btnEqual, R.id.btnPlusMinus };
+				R.id.btnPercent, R.id.btnDot, R.id.btnEqual, R.id.btnPlusMinus,
+				R.id.btnSqrt };
 		for (int i : buttons) {
 			((Button) findViewById(i)).setOnClickListener(this);
 		}
 
 		TextView displays = (TextView) findViewById(R.id.strDisplay);
-		this.mEngine = new Calculator(new MathOperation(), displays);
+
+		mEngine = new Calculator(new MathOperation(), displays);
 	}
 
 	@Override
@@ -79,17 +81,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 			mEngine.reset();
 			break;
 		case R.id.btnPercent:
-
-			if (!mEngine.hasLeftOperand()) {
-				break;
-			}
-
-			mEngine.math(":");
-			mEngine.operand("100");
-			mEngine.calculate();
+			mEngine.percent();
+			break;
+		case R.id.btnSqrt:
+			mEngine.sqrt();
 			break;
 		case R.id.btnEqual:
-			mEngine.calculate();
+			mEngine.evaluate();
 			break;
 
 		default:

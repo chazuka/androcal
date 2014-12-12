@@ -5,8 +5,8 @@
     android:padding="@dimen/CBtnPadding" >
 	<solid android:color="@color/orange"/>
   	<corners
-   		android:bottomRightRadius="@dimen/CBtnPadding"
-   		android:bottomLeftRadius="@dimen/CBtnPadding"
-   		android:topLeftRadius="@dimen/CBtnPadding"
-   		android:topRightRadius="@dimen/CBtnPadding"/>
+   		android:bottomRightRadius="@dimen/CBtnRoundCorner"
+   		android:bottomLeftRadius="@dimen/CBtnRoundCorner"
+   		android:topLeftRadius="@dimen/CBtnRoundCorner"
+   		android:topRightRadius="@dimen/CBtnRoundCorner"/>
 </shape>

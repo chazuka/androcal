@@ -1,5 +1,6 @@
 package me.egois.calculator;
 
+import android.content.Context;
 import android.widget.TextView;
 
 /**
@@ -11,6 +12,7 @@ public class Calculator {
 
 	protected MathOperation mOperation;
 	protected TextView mDisplay;
+	protected Context mContext;
 
 	/**
 	 * Calculator class constructor
@@ -22,6 +24,10 @@ public class Calculator {
 
 		mOperation = op;
 		mDisplay = view;
+	}
+	
+	public void setContext(Context c) {
+		mContext = c;
 	}
 
 	/**
@@ -55,9 +61,9 @@ public class Calculator {
 	/**
 	 * Explicitly evaluate math statement and update displays
 	 */
-	public void calculate() {
+	public void evaluate() {
 		try {
-			mOperation.calculate();
+			mOperation.evaluate();
 		} catch (Exception e) {
 		}
 		show();
@@ -101,7 +107,7 @@ public class Calculator {
 	 */
 	public boolean hasMathOperand()
 	{
-		return !mOperation.mathSymbol().isEmpty();
+		return !mOperation.mathOperand().isEmpty();
 	}
 
 	/**
@@ -110,8 +116,29 @@ public class Calculator {
 	protected void show() {
 		String d = (new StringBuilder())
 				.append(mOperation.leftOperand())
-				.append(mOperation.mathSymbol())
+				.append(mOperation.mathOperand())
 				.append(mOperation.rightOperand()).toString();
 		mDisplay.setText(d);
+	}
+	
+	/**
+	 * Evaluate percentage and update displays
+	 */
+	public void percent() {
+		if (!hasLeftOperand()) return;
+
+		math(MathOperation.DIVISION);
+		operand("100");
+		evaluate();
+	}
+	
+	/**
+	 * Evaluate square root and update displays
+	 */
+	public void sqrt() {
+		if (!hasLeftOperand()) return;
+
+		math(MathOperation.SQRT);
+		evaluate();
 	}
 }
