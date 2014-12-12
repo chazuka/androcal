@@ -26,7 +26,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:padding">@dimen/CDisplayPadding</item>
         <item name="android:textSize">@dimen/CDisplayFont</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:gravity">right</item>
         <item name="android:maxLines">1</item>
     </style>
@@ -36,16 +36,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/CBtnPadding</item>
         <item name="android:textSize">@dimen/CBtnFont</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:background">@drawable/cbutton</item>
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:layout_marginTop">@dimen/CBtnMargin</item>
-		<item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">@dimen/CBtnMargin</item>
+		<item name="android:layout_marginLeft">@dimen/CBtnMargin</item>
+        <item name="android:layout_marginRight">0dp</item>
     </style>
     
     <style name="CButtonRight" parent="@style/CButton">
-        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginRight">@dimen/CBtnMargin</item>
         <item name="android:background">@drawable/cbutton_right</item>
         <item name="android:layout_width">fill_parent</item>
     </style>
