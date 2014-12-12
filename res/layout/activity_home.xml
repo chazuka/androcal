@@ -27,23 +27,23 @@
         android:layout_below="@+id/strDisplay"
         android:layout_toEndOf="@+id/btnClear"
         android:layout_toRightOf="@+id/btnClear"
-        android:text="%" />
-
+        android:text="@string/math_percent" />
+    
     <Button
-        android:id="@+id/btnPlusMinus"
+        android:id="@+id/btnSqrt"
         style="@style/CButton"
         android:layout_below="@+id/strDisplay"
         android:layout_toEndOf="@+id/btnPercent"
         android:layout_toRightOf="@+id/btnPercent"
-        android:text="+/-" />
+        android:text="@string/math_sqrt" /> 
 
     <Button
         android:id="@+id/btnDivide"
         style="@style/CButtonRight"
         android:layout_below="@+id/strDisplay"
-        android:layout_toEndOf="@+id/btnPlusMinus"
-        android:layout_toRightOf="@+id/btnPlusMinus"
-        android:text=":" />
+        android:layout_toEndOf="@+id/btnSqrt"
+        android:layout_toRightOf="@+id/btnSqrt"
+        android:text="@string/math_division" />
 
     <Button
         android:id="@+id/btnSeven"
@@ -73,7 +73,7 @@
         android:layout_below="@+id/btnClear"
         android:layout_toEndOf="@+id/btnNine"
         android:layout_toRightOf="@+id/btnNine"
-        android:text="*" />
+        android:text="@string/math_multiplication" />
 
     <Button
         android:id="@+id/btnFour"
@@ -103,7 +103,7 @@
         android:layout_below="@+id/btnSeven"
         android:layout_toEndOf="@+id/btnSix"
         android:layout_toRightOf="@+id/btnSix"
-        android:text="-" />
+        android:text="@string/math_substraction" />
 
     <Button
         android:id="@+id/btnOne"
@@ -133,7 +133,7 @@
         android:layout_below="@+id/btnFour"
         android:layout_toEndOf="@+id/btnThree"
         android:layout_toRightOf="@+id/btnThree"
-        android:text="+" />
+        android:text="@string/math_addition" />
 
     <Button
         android:id="@+id/btnZero"
@@ -148,13 +148,21 @@
         android:layout_toEndOf="@+id/btnZero"
         android:layout_toRightOf="@+id/btnZero"
         android:text="." />
+    
+    <Button
+        android:id="@+id/btnPlusMinus"
+        style="@style/CButton"
+        android:layout_below="@+id/btnOne"
+        android:layout_toEndOf="@+id/btnDot"
+        android:layout_toRightOf="@+id/btnDot"
+        android:text="+/-" />
 
     <Button
         android:id="@+id/btnEqual"
         style="@style/CButtonRight"
         android:layout_below="@+id/btnOne"
-        android:layout_toEndOf="@+id/btnDot"
-        android:layout_toRightOf="@+id/btnDot"
+        android:layout_toEndOf="@+id/btnPlusMinus"
+        android:layout_toRightOf="@+id/btnPlusMinus"
         android:text="=" />
 
 </RelativeLayout>

@@ -8,10 +8,19 @@ import java.text.DecimalFormat;
  * @author chz <chazzuka@gmail.com>
  */
 public class MathOperation {
-
-    private String leftOperand = "";
-    private String rightOperand = "";
-    private String mathSymbol = "";
+	
+	public static final String MULTIPLICATION = "*";
+	public static final String DIVISION = "÷";
+	public static final String ADDITION = "+";
+	public static final String SUBSTRACTION = "-";
+	public static final String SQRT = "√";
+	public static final String SQUARED = "x²";
+	
+	public static final String[] SINGLE_OPERANDS = {SQRT,SQUARED};
+	
+    private String mLeftOperand = "";
+    private String mRightOperand = "";
+    private String mMathOperand = "";
     private boolean isAfterCalculation = false;
     
     /**
@@ -22,19 +31,19 @@ public class MathOperation {
     public void operand(String op)
     {
         if (isAfterCalculation) {
-            leftOperand = "";
+            mLeftOperand = "";
             isAfterCalculation = false;
         }
         
-        if (mathSymbol.isEmpty()) {
-            if (leftOperand.isEmpty() && op.equals(".")) {
-                leftOperand = "0";
+        if (mMathOperand.isEmpty()) {
+            if (mLeftOperand.isEmpty() && op.equals(".")) {
+                mLeftOperand = "0";
             }
-            leftOperand = leftOperand.concat(op);
+            mLeftOperand = mLeftOperand.concat(op);
             return;
         }
         
-        rightOperand = rightOperand.concat(op);
+        mRightOperand = mRightOperand.concat(op);
     }
     
 	/**
@@ -42,17 +51,17 @@ public class MathOperation {
 	 */
     public void polarize()
     {
-		if (mathSymbol.isEmpty()) {
-			if (!leftOperand.isEmpty() && leftOperand.startsWith("-")) {
-				leftOperand = leftOperand.replace("-","");
+		if (mMathOperand.isEmpty()) {
+			if (!mLeftOperand.isEmpty() && mLeftOperand.startsWith("-")) {
+				mLeftOperand = mLeftOperand.replace("-","");
 			} else {
-				leftOperand = "-".concat(leftOperand);
+				mLeftOperand = "-".concat(mLeftOperand);
 			}
 		} else {
-			if (!rightOperand.isEmpty() && rightOperand.startsWith("-")) {
-				rightOperand = rightOperand.replace("-","");
+			if (!mRightOperand.isEmpty() && mRightOperand.startsWith("-")) {
+				mRightOperand = mRightOperand.replace("-","");
 			} else {
-				rightOperand = "-".concat(rightOperand);
+				mRightOperand = "-".concat(mRightOperand);
 			}
 		}
     }
@@ -64,17 +73,17 @@ public class MathOperation {
      */
     public void math(String op)
     {
-        if (leftOperand.isEmpty() || leftOperand.equals("-")) {
+        if (mLeftOperand.isEmpty() || mLeftOperand.equals("-")) {
             return;
         }
         
-        if (!mathSymbol.isEmpty()) {
+        if (!mMathOperand.isEmpty()) {
             try {
-                this.calculate();
+                this.evaluate();
             } catch (Exception e) {}
         }
         
-        mathSymbol = op;
+        mMathOperand = op;
         isAfterCalculation = false;
     }
     
@@ -83,31 +92,41 @@ public class MathOperation {
      * 
      * @throws Exception
      */
-    public void calculate() throws Exception
+    public void evaluate() throws Exception
     {
-        if(leftOperand.isEmpty() || leftOperand.equals("-") || mathSymbol.isEmpty() || rightOperand.isEmpty() || rightOperand.equals("-")) {
-            //this.reset();
-            return;
-        }
-        
-        double r;
-        double first = Double.valueOf(leftOperand);
-        double second = Double.valueOf(rightOperand);
-        
-        if (mathSymbol.equals("+")) {
+    	if (mMathOperand.isEmpty() || mLeftOperand.isEmpty() || mLeftOperand.equals("-")) {
+    		return;
+    	}
+    	
+    	double r, first, second;
+    	first = Double.valueOf(mLeftOperand);
+    	if (inArray(SINGLE_OPERANDS, mMathOperand)) {
+    		second = 0; // silly!
+    	} else {
+            if(mRightOperand.isEmpty() || mRightOperand.equals("-")) {
+                return;
+            }
+    		second = Double.valueOf(mRightOperand);
+    	}
+
+        if (mMathOperand.equals(ADDITION)) {
         	r = first + second;
-        } else if (mathSymbol.equals("-")) {
+        } else if (mMathOperand.equals(SUBSTRACTION)) {
         	r = first - second;
-        } else if (mathSymbol.equals("*")) {
+        } else if (mMathOperand.equals(MULTIPLICATION)) {
         	r = first * second;
-        } else if (mathSymbol.equals(":")) {
+        } else if (mMathOperand.equals(DIVISION)) {
         	r = first/second;
+        } else if (mMathOperand.equals(SQRT)) {
+        	r = Math.sqrt(first);
+        } else if (mMathOperand.equals(SQUARED)) {
+        	r = Math.pow(first, 2);
         } else {
         	throw new Exception("unsupported math operand");
         }
         
         this.reset();
-        leftOperand = (new DecimalFormat("#.##")).format(r);
+        mLeftOperand = (new DecimalFormat("#.##")).format(r);
         isAfterCalculation = true;
     }
     
@@ -116,9 +135,9 @@ public class MathOperation {
      */
     public void reset()
     {
-        leftOperand = "";
-        rightOperand = "";
-        mathSymbol = "";
+        mLeftOperand = "";
+        mRightOperand = "";
+        mMathOperand = "";
     }
 
     /**
@@ -127,7 +146,7 @@ public class MathOperation {
      * @return string
      */
     public String leftOperand() {
-        return leftOperand;
+        return mLeftOperand;
     }
 
     /**
@@ -136,7 +155,7 @@ public class MathOperation {
      * @return string
      */
     public String rightOperand() {
-        return rightOperand;
+        return mRightOperand;
     }
 
     /**
@@ -144,8 +163,15 @@ public class MathOperation {
      * 
      * @return string
      */
-    public String mathSymbol() {
-        return mathSymbol;
+    public String mathOperand() {
+        return mMathOperand;
+    }
+    
+    public boolean inArray(String[] arr, String targetValue) {
+    	for(String s: arr){
+    		if(s.equals(targetValue)) return true;
+    	}
+    	return false;
     }
 	
 }
