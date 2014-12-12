@@ -167,9 +167,17 @@ public class MathOperation {
         return mMathOperand;
     }
     
-    public boolean inArray(String[] arr, String targetValue) {
-    	for(String s: arr){
-    		if(s.equals(targetValue)) return true;
+    /**
+     * Check if a string is exists in array strings
+     * 
+     * @param haystack
+     * @param needle
+     * 
+     * @return boolean
+     */
+    public boolean inArray(String[] haystack, String needle) {
+    	for(String s: haystack){
+    		if(s.equals(needle)) return true;
     	}
     	return false;
     }
