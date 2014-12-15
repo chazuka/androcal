@@ -1,6 +1,8 @@
 Simple Android Calculator
 ---
 
+**migrated to [androple](https://github.com/chazzuka/androple/tree/master/calculator)**
+
 A simple example of android calculator as eclipse project, created for educational purposes.
 
 1. import git repository `git clone git@github.com:chazzuka/androcal.git`
